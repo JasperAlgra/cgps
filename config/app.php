@@ -148,6 +148,9 @@ return [
         // Laravel IDE helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+        // Scaffolding
+        Bestmomo\Scafold\ScafoldServiceProvider::class,
+
     ],
 
     /*
