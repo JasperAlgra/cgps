@@ -15,6 +15,7 @@
 namespace App\Http\Controllers;
 
 use App\CGPS\CGPS;
+use App\Device;
 use App\Report;
 use Exception;
 use Log;
@@ -194,9 +195,14 @@ class CgpsController extends Controller
             // Should we write to the database?
             if ($this->writeToDB === false) continue;
 
-            // Write to the DB
-            $report = Report::firstOrCreate([
-                'IMEI' => $pcGPS->GetImei(),
+            // Find the device
+            $IMEI = $pcGPS->GetImei();
+
+            // If not in DB add
+            $device = Device::firstOrNew(array('IMEI' => $IMEI));
+
+            // Write report for this device to the DB
+            $report = $device->reports()->create([
                 'datetime' => $pcGPS->GetUtcTimeMySQL(),
                 'switch' => $pcGPS->GetSwitch(),
                 'eventId' => $pcGPS->CanGetEventID(),

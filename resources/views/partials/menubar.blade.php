@@ -4,7 +4,7 @@
 			<div class="menu-body">
 				<ul class="nav nav-pills nav-stacked sidenav">
 					<li >
-						<a href="/home">
+						<a href="/">
 						<span class="glyphicon glyphicon-home"></span>
 						</a>
 						<ul class="nested-dropdown animated fadeIn">

@@ -13,8 +13,11 @@ class CreateReportsTable extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('IMEI');
+            $table->bigIncrements('id')->unsigned();
+//            $table->string('IMEI');
+            // foreign key op devices
+            $table->integer('device_id')->unsigned();
+            $table->foreign('device_id')->references('id')->on('devices')->change();
             $table->dateTime('datetime');
             $table->string('switch')->nullable();
             $table->string('eventId')->nullable();
@@ -24,6 +27,8 @@ class CreateReportsTable extends Migration
             $table->binary('data');
             $table->binary('extra')->nullable();
             $table->timestamps();
+
+//            $table->index('data', 60);
         });
     }
 

@@ -14,7 +14,7 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('IMEI');
+            $table->string('IMEI')->unique();
             $table->string('number')->nullable();
             $table->string('simnumber')->nullable();
             $table->string('test')->nullable();

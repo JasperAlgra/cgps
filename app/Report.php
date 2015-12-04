@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model
+class Report extends Eloquent
 {
 
     /**
@@ -19,6 +20,12 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['IMEI', 'datetime', 'switch', 'eventId','lat','lon','IO', 'data', 'extra'];
+    protected $fillable = ['device_id', 'datetime', 'switch', 'eventId', 'lat', 'lon', 'IO', 'data', 'extra'];
 
+
+    public function report()
+    {
+        return $this->belongsTo('App\Device');
+//        return $this->belongsTo('App\Device', 'foreign_key', 'other_key');
+    }
 }
