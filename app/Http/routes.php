@@ -17,12 +17,13 @@
 
 Route::get('/', function () {
     \Session::set('lang', 'en');
-    return view('login');
+    return view('pages.home');
 });
 
 Route::get('/cgps', [
     'uses' => 'CgpsController@receive'
 ]);
+
 Route::get('/upload', [
     'uses' => 'CgpsController@upload'
 ]);
@@ -33,11 +34,13 @@ Route::get('/graph', [
 ]);
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 });
+
 Route::get('/signup', function () {
     return view('signup');
 });
+
 Route::get('/404-page', function () {
     return view('404-page');
 });
@@ -114,6 +117,8 @@ Route::get('/blank', function () {
     return view('pages/blank');
 });
 
+
+
 Route::get('api/change-theme', function() {
     \Session::set('theme', \Input::get('theme'));
 });
@@ -127,21 +132,22 @@ Route::get('api/set-rtl', function() {
 
 
 //// Authentication routes...
-//Route::get('auth/login', 'Auth\AuthController@getLogin');
-//Route::post('auth/login', 'Auth\AuthController@postLogin');
-//Route::get('auth/logout', 'Auth\AuthController@getLogout');
-//
-//// Registration routes...
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
-//
-//// Password reset link request routes...
-//Route::get('password/email', 'Auth\PasswordController@getEmail');
-//Route::post('password/email', 'Auth\PasswordController@postEmail');
-//
-//// Password reset routes...
-//Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-//Route::post('password/reset', 'Auth\PasswordController@postReset');
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
 //
 //
 //Route::get('/show-autoloaders', function(){

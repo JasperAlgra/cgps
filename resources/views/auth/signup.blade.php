@@ -5,7 +5,8 @@
 @stop
 
 @section('section')
-	<form role="form" action="home">
+	<form role="form" action="{{ url('/auth/register') }}">
+		{!! csrf_field() !!}
 		<div class="form-content">
 			<div class="form-group">
 				<input type="text" class="form-control input-underline input-lg" id="" placeholder={{ Lang::get(\Session::get('lang').'.fullname') }}>
