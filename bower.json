@@ -1,0 +1,34 @@
+{
+  "name": "cgps",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Nitin Kumar Mishra <nitin@sahusoft.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "~3.4.0",
+    "bootstrap-btn-outline-rounded": "~0.0.4",
+    "font-awesome": "fontawesome#~4.4.0",
+    "hover": "~2.0.2",
+    "jquery": "~2.1.4",
+    "perfect-scrollbar": "~0.6.7",
+    "bootstrap": "~3.3.5",
+    "c3": "~0.4.10",
+    "Chart.js": "chartjs#~1.0.2",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37",
+    "fullcalendar": "~2.4.0",
+    "ckeditor": "~4.5.4",
+    "growl": "~1.3.1"
+  }
+}
