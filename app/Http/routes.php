@@ -29,9 +29,9 @@ Route::get('/upload', [
     'uses' => 'UploadController@index'
 ]);
 
-Route::post('/upload', [
+Route::post('/cgps/file', [
     'middleware' => 'auth',
-    'uses' => 'UploadController@file'
+    'uses' => 'CgpsController@file'
 ]);
 
 Route::get('/graph', [
