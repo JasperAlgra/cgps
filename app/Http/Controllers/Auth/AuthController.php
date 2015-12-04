@@ -33,7 +33,7 @@ class AuthController extends Controller
      * Redirect to login
      * @var string
      */
-    protected $loginPath = '/login';
+//    protected $loginPath = '/login';
 
     /**
      * Create a new authentication controller instance.

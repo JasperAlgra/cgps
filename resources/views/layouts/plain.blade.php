@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Ani-Theme Laravel Dashboard | @yield('page_title')</title>
+		<title>CGPS | @yield('page_title')</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset("css/vendor.css") }}" />		
@@ -12,5 +12,6 @@
 			<script src="{{ asset("vendor/ckeditor/ckeditor.js") }}" type="text/javascript"></script>			
 			<script src="{{ asset("js/vendor.js")}}"></script>
 		@yield('js')
+		@yield('css')
 	</body>
 </html>

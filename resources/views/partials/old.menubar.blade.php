@@ -12,11 +12,6 @@
 						</ul>
 					</li>
 					<li >
-						<a href="{{url('/upload')}}">
-							<span class="glyphicon glyphicon-cloud-download"></span>
-						</a>
-					</li>
-					<li >
 						<a href="/typography">
 						<span class="glyphicon glyphicon-text-size"></span>
 						</a>

@@ -15,17 +15,23 @@
 //    return view('welcome');
 //});
 
-Route::get('/', function () {
+Route::get('/', ['middleware' => 'auth', function() {
     \Session::set('lang', 'en');
     return view('pages.home');
-});
+}]);
 
 Route::get('/cgps', [
     'uses' => 'CgpsController@receive'
 ]);
 
 Route::get('/upload', [
-    'uses' => 'CgpsController@upload'
+    'middleware' => 'auth',
+    'uses' => 'UploadController@index'
+]);
+
+Route::post('/upload', [
+    'middleware' => 'auth',
+    'uses' => 'UploadController@file'
 ]);
 
 Route::get('/graph', [
@@ -33,19 +39,21 @@ Route::get('/graph', [
     'uses' => 'Graph\GraphController@view'
 ]);
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+//Route::get('/login', function () {
+//    return view('auth.login');
+//});
+//
+//Route::get('/signup', function () {
+//    return view('signup');
+//});
 
-Route::get('/signup', function () {
-    return view('signup');
-});
+//Route::get('/home', function () {
+//    return view('pages/home');
+//});
+
 
 Route::get('/404-page', function () {
     return view('404-page');
-});
-Route::get('/home', function () {
-    return view('pages/home');
 });
 
 Route::get('/profile', function () {
