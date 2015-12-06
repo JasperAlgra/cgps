@@ -37,9 +37,23 @@ class GraphController extends Controller
         if (!is_null($start) AND !is_numeric($start)) $start = date("Y-m-d H:i:s", strtotime($start));
         if (!is_null($end) AND !is_numeric($end)) $end = date("Y-m-d H:i:s", strtotime($end));
 
+        // Convert from numeric (possible timestamp) to UTC
+        if (!is_null($start) AND is_numeric($start)) $start = date("Y-m-d H:i:s", $start);
+        if (!is_null($end) AND is_numeric($end)) $end = date("Y-m-d H:i:s", $end);
+
+        // Get the last report from db to find time
+        $lastReport = DB::table('reports')
+            ->select('datetime')
+            ->orderBy('datetime', 'DESC')
+            ->limit(1)
+            ->first();
+        // Default to last point from DB to 4 hours before that
+        if (is_null($end)) $end = $lastReport->datetime;
+        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime($end .' - 4 hour'));
+
         // Default to FROM -1 days TO now UCT
-        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime("-7 day"));
-        if (is_null($end)) $end = date("Y-m-d H:i:s", strtotime("now"));
+//        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime("-7 day"));
+//        if (is_null($end)) $end = date("Y-m-d H:i:s", strtotime("now"));
 
         // Get the graph data
         $graphData = NULL;
@@ -54,10 +68,6 @@ class GraphController extends Controller
 
         $log = DB::getQueryLog();
 
-        $adasd = true;
-
-//        $result['perfData'][] = Array((floatval($value[0]) ) * 1000, floatval(round($value[1],$round)));
-
         // Sort in array grouped by input
         foreach($voltages as $volt) {
             $graphData[$volt->input][] = Array(
@@ -70,7 +80,16 @@ class GraphController extends Controller
         $series = Array();
         foreach ($graphData as $key=>$value) {
             $series[] = Array(
-                'name' => $key,
+                'name' => 'Input'. $key,
+//                'pointStart' => strtotime($start)*1000,
+//                'type'=> 'area',
+//                'pointinterval' => 60000,
+//                'xAxis' => $key,
+//                'yAxis' => $key,
+                'tooltip' => Array(
+                    'valueDecimals' => 2,
+                    'valueSuffix' => 'Volt',
+                ),
                 'data' => $value
             );
         }
