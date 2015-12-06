@@ -23,9 +23,17 @@ class Report extends Eloquent
     protected $fillable = ['device_id', 'datetime', 'switch', 'eventId', 'lat', 'lon', 'IO', 'data', 'extra'];
 
 
-    public function report()
+    public function device()
     {
         return $this->belongsTo('App\Device');
 //        return $this->belongsTo('App\Device', 'foreign_key', 'other_key');
+    }
+
+    public function voltages() {
+        return $this->hasMany('App\Voltage');
+    }
+
+    public function data() {
+        return $this->hasOne('App\Data');
     }
 }

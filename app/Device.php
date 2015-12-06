@@ -14,6 +14,8 @@ class Device extends Eloquent
 	 */
 	protected $table = 'devices';
 
+	protected $fillable = ['IMEI', 'number', 'simnumber'];
+
 
 	/**
 	 * Get reports for a device

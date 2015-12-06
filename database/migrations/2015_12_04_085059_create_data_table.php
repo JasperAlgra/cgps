@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReportsTest extends Migration
+class CreateDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class ReportsTest extends Migration
      */
     public function up()
     {
-        Schema::table('reports', function (Blueprint $table) {
-
-            // foreign key op devices
-//            $table->foreign('device_id')->references('id')->on('devices')->change();
+        Schema::create('data', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('report_id');
+            $table->binary('data');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class ReportsTest extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('data');
     }
 }

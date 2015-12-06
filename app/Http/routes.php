@@ -34,9 +34,9 @@ Route::post('/cgps/file', [
     'uses' => 'CgpsController@file'
 ]);
 
-Route::get('/graph', [
+Route::get('/graph/jsonData/{name?}/{start?}/{end?}', [
     'middleware' => 'auth',
-    'uses' => 'Graph\GraphController@view'
+    'uses' => 'GraphController@jsonData'
 ]);
 
 //Route::get('/login', function () {

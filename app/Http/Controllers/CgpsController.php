@@ -15,8 +15,11 @@
 namespace App\Http\Controllers;
 
 use App\CGPS\CGPS;
+use App\Data;
 use App\Device;
 use App\Report;
+use App\Report_data;
+use App\Voltage;
 use Exception;
 use Log;
 use Illuminate\Http\Request;
@@ -199,7 +202,7 @@ class CgpsController extends Controller
             $IMEI = $pcGPS->GetImei();
 
             // If not in DB add
-            $device = Device::firstOrNew(array('IMEI' => $IMEI));
+            $device = Device::firstOrCreate(array('IMEI' => $IMEI));
 
             // Write report for this device to the DB
             $report = $device->reports()->create([
@@ -209,8 +212,25 @@ class CgpsController extends Controller
                 'lat' => (($pcGPS->CanGetLatLong() OR $pcGPS->CanGetLatLongInaccurate()) ? sprintf('%.5f', (float)$pcGPS->GetLatitudeFloat()) : null),
                 'lon' => (($pcGPS->CanGetLatLong() OR $pcGPS->CanGetLatLongInaccurate()) ? sprintf('%.5f', (float)$pcGPS->GetLongitudeFloat()) : null),
                 'IO' => $pcGPS->GetIO(),
-                'data' => $pcGPS->GetBinaryData(),
             ]);
+
+            // Save data
+            $reportData = new Data(['data' => $pcGPS->GetBinaryData()]);
+//            $data = $report->data;
+//            $data->data = $pcGPS->GetBinaryData();
+            $report->data()->save($reportData);
+
+
+            // Save voltage
+            if($pcGPS->CanGetAnalogInputs()) {
+                $report->voltages()->saveMany([
+                    new Voltage(['input' => '1', 'value' => $pcGPS->GetAnalogInput1()]),
+                    new Voltage(['input' => '2', 'value' => $pcGPS->GetAnalogInput2()]),
+                    new Voltage(['input' => '3', 'value' => $pcGPS->GetAnalogInput3()]),
+                    new Voltage(['input' => '4', 'value' => $pcGPS->GetAnalogInput4()]),
+                ]);
+            }
+
         }
 
     }

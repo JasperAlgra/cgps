@@ -17,7 +17,6 @@ class CreateDevicesTable extends Migration
             $table->string('IMEI')->unique();
             $table->string('number')->nullable();
             $table->string('simnumber')->nullable();
-            $table->string('test')->nullable();
             $table->timestamps();
         });
 

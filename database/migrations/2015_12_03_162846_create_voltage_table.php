@@ -12,11 +12,11 @@ class CreateVoltageTable extends Migration
      */
     public function up()
     {
-        Schema::create('voltage', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('device_id');
-            $table->integer('input');
-            $table->integer('value');
+        Schema::create('voltages', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->bigInteger('report_id')->unsigned();
+            $table->string('input');
+            $table->float('value');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateVoltageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('voltage');
+        Schema::drop('voltages');
     }
 }
