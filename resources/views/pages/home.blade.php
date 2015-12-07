@@ -255,6 +255,36 @@
 //                        afterSetExtremes: afterSetExtremes
                     }
                 },
+                yAxis: [{ // Primary yAxis
+                    labels: {
+                        format: '{value} V',
+                        style: {
+//                            color: Highcharts.getOptions().colors[2]
+                        }
+                    },
+                    title: {
+                        text: 'Voltage',
+                        style: {
+//                            color: Highcharts.getOptions().colors[2]
+                        }
+                    },
+                    opposite: true
+
+                }, { // Secondary yAxis
+                    gridLineWidth: 0,
+                    title: {
+                        text: 'Watt',
+                        style: {
+//                            color: Highcharts.getOptions().colors[0]
+                        }
+                    },
+                    labels: {
+                        format: '{value} W',
+                        style: {
+//                            color: Highcharts.getOptions().colors[0]
+                        }
+                    }
+                }],
 
                 title: {
 //                    text: 'Hourly temperatures in Vik i Sogn, Norway, 2009-2015'
