@@ -204,9 +204,13 @@ class CgpsController extends Controller
             // If not in DB add
             $device = Device::firstOrCreate(array('IMEI' => $IMEI));
 
+//            $time1 = $pcGPS->GetUtcTimeMySQL();
+//            $time2 = $pcGPS->GetUtcTime();
+//            $time3 = Date("Y-m-d H:i:s", $time2);
+
             // Write report for this device to the DB
-            $report = $device->reports()->create([
-                'datetime' => $pcGPS->GetUtcTimeMySQL(),
+            $report = $device->reports()->firstOrCreate([
+                'datetime' => Date("Y-m-d H:i:s", $pcGPS->GetUtcTime()),
                 'switch' => $pcGPS->GetSwitch(),
                 'eventId' => $pcGPS->CanGetEventID(),
                 'lat' => (($pcGPS->CanGetLatLong() OR $pcGPS->CanGetLatLongInaccurate()) ? sprintf('%.5f', (float)$pcGPS->GetLatitudeFloat()) : null),

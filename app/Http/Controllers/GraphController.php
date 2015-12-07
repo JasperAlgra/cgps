@@ -49,7 +49,8 @@ class GraphController extends Controller
             ->first();
         // Default to last point from DB to 4 hours before that
         if (is_null($end)) $end = $lastReport->datetime;
-        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime($end .' - 4 hour'));
+//        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime($end .' - 4 hour'));
+        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime($end .' - 1 year'));
 
         // Default to FROM -1 days TO now UCT
 //        if (is_null($start)) $start = date("Y-m-d H:i:s", strtotime("-7 day"));
@@ -61,8 +62,10 @@ class GraphController extends Controller
         DB::enableQueryLog();
         $voltages = DB::table('reports')
             ->join('voltages', 'reports.id', '=', 'voltages.report_id')
-            ->select('reports.id','reports.datetime', 'voltages.input', 'voltages.value')
-//            ->groupBy('reports.id','voltages.input')
+            ->select('reports.datetime', 'voltages.input', 'voltages.value')
+            ->orderBy('voltages.input')
+            ->orderBy('reports.datetime', 'ASC')
+            //            ->groupBy('reports.id','voltages.input')
             ->whereBetween('reports.datetime', [$start, $end])
             ->get();
 
@@ -79,6 +82,10 @@ class GraphController extends Controller
 
         $series = Array();
         foreach ($graphData as $key=>$value) {
+
+            // add one data point of 1 jan 2015 to beginning of data to fake bigger range for highcharts
+//            array_unshift($value, Array(1420066800000,0));
+
             $series[] = Array(
                 'name' => 'Input'. $key,
 //                'pointStart' => strtotime($start)*1000,
@@ -89,6 +96,9 @@ class GraphController extends Controller
                 'tooltip' => Array(
                     'valueDecimals' => 2,
                     'valueSuffix' => 'Volt',
+                ),
+                'dataGrouping' => Array(
+                    'enabled'   => false
                 ),
                 'data' => $value
             );

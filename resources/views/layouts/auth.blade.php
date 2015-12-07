@@ -22,9 +22,8 @@
 	</style>
 
 	<div class="loginBox alpha60">
-		<div class="row">
-			<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
-				<h1>Login</h1>
+		<div class="col-lg-4">
+			<div >
 					@yield('section')
 			</div>			
 		</div>
