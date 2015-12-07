@@ -76,7 +76,7 @@ class GraphController extends Controller
             $graphData[$volt->input][] = Array(
                 // Convert from unix time to javascript (*1000)
                 floatval(strtotime($volt->datetime)*1000),
-                $volt->value
+                floatval($volt->value)
             );
         }
 
